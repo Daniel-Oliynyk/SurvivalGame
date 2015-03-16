@@ -11,6 +11,7 @@ public class Setup extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         game = new Game(this);
+        game.resume();
         setContentView(game);
     }
 

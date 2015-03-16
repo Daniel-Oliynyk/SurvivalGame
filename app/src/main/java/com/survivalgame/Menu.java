@@ -24,8 +24,8 @@ public class Menu extends Activity implements OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            Intent myIntent = new Intent(view.getContext(), Setup.class);
-            startActivity(myIntent);
+            Intent intent = new Intent(view.getContext(), Setup.class);
+            startActivity(intent);
         }
         return false;
     }
