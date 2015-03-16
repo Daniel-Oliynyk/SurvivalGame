@@ -17,7 +17,7 @@ public class Game extends SurfaceView implements Runnable {
     public static Picture screen = new Picture();
     public static Paint brush = new Paint();
     public static Canvas painter;
-    public static Random ran = new Random();
+    public static Random random = new Random();
 
     private Thread thread = null;
     private SurfaceHolder surface;
@@ -62,8 +62,8 @@ public class Game extends SurfaceView implements Runnable {
             Canvas canvas = surface.lockCanvas();
             painter.drawColor(Color.DKGRAY);
 
-//            painter.drawCircle(ran.nextInt(WIDTH), ran.nextInt(HEIGHT), 200, brush);
             Touch.update();
+            Player.update();
 
             screen.endRecording();
             canvas.drawPicture(screen);

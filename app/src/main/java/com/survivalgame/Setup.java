@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 public class Setup extends Activity {
 
-    Game game;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

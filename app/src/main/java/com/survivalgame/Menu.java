@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class Menu extends Activity implements OnTouchListener {
 
-    Button button;
+    private Button button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,5 +29,4 @@ public class Menu extends Activity implements OnTouchListener {
         }
         return false;
     }
-
 }
