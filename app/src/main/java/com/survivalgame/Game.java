@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.Point;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
@@ -29,6 +28,7 @@ public class Game extends SurfaceView implements Runnable {
     public Game(Context context) {
         super(context);
         surface = getHolder();
+        this.setOnTouchListener(Touch.touchListener);
 
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
@@ -40,6 +40,7 @@ public class Game extends SurfaceView implements Runnable {
         painter = screen.beginRecording(WIDTH, HEIGHT);
         brush.setAntiAlias(true);
         brush.setColor(Color.WHITE);
+        brush.setStyle(Paint.Style.FILL);
     }
 
     public void resume() {
@@ -59,9 +60,10 @@ public class Game extends SurfaceView implements Runnable {
         while (running) {
             if(!surface.getSurface().isValid()) continue;
             Canvas canvas = surface.lockCanvas();
-            painter.drawColor(Color.BLACK);
+            painter.drawColor(Color.DKGRAY);
 
-            painter.drawCircle(ran.nextInt(WIDTH), ran.nextInt(HEIGHT), 200, brush);
+//            painter.drawCircle(ran.nextInt(WIDTH), ran.nextInt(HEIGHT), 200, brush);
+            Touch.update();
 
             screen.endRecording();
             canvas.drawPicture(screen);
@@ -69,10 +71,5 @@ public class Game extends SurfaceView implements Runnable {
             painter = screen.beginRecording(WIDTH, HEIGHT);
             surface.unlockCanvasAndPost(canvas);
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return true;
     }
 }
