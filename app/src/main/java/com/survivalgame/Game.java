@@ -18,12 +18,14 @@ public class Game extends SurfaceView implements Runnable {
     public static Paint brush = new Paint();
     public static Canvas painter;
     public static Random random = new Random();
+    public static Noise noise = new Noise();
 
     private Thread thread = null;
     private SurfaceHolder surface;
 
     private boolean running = false;
     public boolean isPaused = false;
+
 
     public Game(Context context) {
         super(context);
@@ -60,8 +62,18 @@ public class Game extends SurfaceView implements Runnable {
         while (running) {
             if(!surface.getSurface().isValid()) continue;
             Canvas canvas = surface.lockCanvas();
-            painter.drawColor(Color.DKGRAY);
+            painter.drawColor(Color.rgb(139, 69, 19));
 
+            int temp = 50;
+            brush.setColor(Color.GREEN);
+            for (float x = 0; x < WIDTH; x += temp) {
+                for (float y = 0; y < HEIGHT; y += temp) {
+                    int test = (int) (Math.abs(noise.eval(x / 1000, y / 1000)) * 256);
+                    brush.setColor(Color.rgb(test, test, test));
+                    painter.drawRect(x, y, x + temp, y + temp, brush);
+                }
+            }
+            brush.setColor(Color.WHITE);
             Touch.update();
             Player.update();
 

@@ -28,6 +28,7 @@ public class Touch {
                     magnitude = (magnitude > FULL_SIZE * 0.75)? FULL_SIZE * 0.75 : magnitude;
                 }
             }
+            else noise = new Noise(random.nextInt());
             return true;
         }
     };
@@ -39,7 +40,7 @@ public class Touch {
 
     public static int scaleMagnitudeY(int scale) {
         double scaleDecimal = (magnitude / (FULL_SIZE * 0.75)) * scale;
-        return -1 * (int) (Math.sin(angle) * scaleDecimal);
+        return -(int) (Math.sin(angle) * scaleDecimal);
     }
 
     public static void update() {
