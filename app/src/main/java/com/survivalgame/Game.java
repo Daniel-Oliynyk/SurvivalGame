@@ -62,17 +62,32 @@ public class Game extends SurfaceView implements Runnable {
         while (running) {
             if(!surface.getSurface().isValid()) continue;
             Canvas canvas = surface.lockCanvas();
-            painter.drawColor(Color.rgb(139, 69, 19));
+            painter.drawColor(Color.BLACK);
 
-            int temp = 50;
-            brush.setColor(Color.GREEN);
-            for (float x = 0; x < WIDTH; x += temp) {
-                for (float y = 0; y < HEIGHT; y += temp) {
-                    int test = (int) (Math.abs(noise.eval(x / 1000, y / 1000)) * 256);
-                    brush.setColor(Color.rgb(test, test, test));
-                    painter.drawRect(x, y, x + temp, y + temp, brush);
+
+            int size = 50;
+            int detail = 500;
+
+            int tx = (int) (Math.floor(Player.x / size) * size);
+            int ty = (int) (Math.floor(Player.y / size) * size);
+
+            int startX = tx - (WIDTH / 2);
+            int startY = ty - (HEIGHT / 2);
+
+            for (float x = startX; x < tx + (WIDTH / 2); x += size) {
+                for (float y = startY; y < ty + (HEIGHT / 2); y += size) {
+                    double value = Math.abs(noise.eval(x / detail, y / detail));
+                    int percent = (int) (value * 100);
+                    if (percent < 20) brush.setColor(Color.BLUE);
+                    else if (percent < 30) brush.setColor(Color.YELLOW);
+                    else if (percent < 80) brush.setColor(Color.GREEN);
+                    else brush.setColor(Color.GRAY);
+                    float xPos = x - startX + tx - Player.x;
+                    float yPos = y - startY + ty - Player.y;
+                    painter.drawRect(xPos, yPos, xPos + size, yPos + size, brush);
                 }
             }
+
             brush.setColor(Color.WHITE);
             Touch.update();
             Player.update();
