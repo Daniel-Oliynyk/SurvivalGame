@@ -1,2 +1,2 @@
 # SurvivalGame
-Work in progress
+Work in progress for a survival game for android.
